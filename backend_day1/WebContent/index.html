@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>여기는 대문입니다.!!!</h1>
+	<!-- HelloServlet을 절대경로와 상대경로로 호출해보자 -->
+	<a href="/backend/hi">hi 절대경로</a>
+	<a href="hi">hi 상대경로</a>
+	<a href="/backend/biz/gugu">gugu 절대경로</a>
+	<a href="./biz/gugu">gugu 상대경로</a>
+	
+	<!-- calcservlet을 통해서 10+20을 계산해보자 -->
+	<a href="calc?num1=10&num2=20">10+20</a>
+	
+	<form method="get" action="calc" id="myform">
+		<input type = "number" name = "num1">
+		<input type = "number" name = "num2">
+		<input type = "submit">
+	</form>
+	<input type = "text" id="result">
+	<h1>get 방식</h1>
+	<form method="get" action="name">
+		<input type = "text" name = "name">
+		<input type = "submit">
+	</form>
+	<h1>post 방식</h1>
+	<form method="post" action="name">
+		<input type = "text" name = "name">
+		<input type = "submit">
+	</form>
+	
+	<h1>flow control</h1>
+	<a href="flow">그냥 호출</a>
+	<a href="flow?by=forward">forward 호출</a>
+	<a href="flow?by=redir">redirect 호출</a>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	//form이 전송될 때 ajax로 처리해보자
+	$("#myform").on("submit", function(e){
+		//form의 기본 이벤트(서버로 전송되려는 동작)를 중지시킴.
+		e.preventDefault();
+		$.ajax({
+			type : "get",
+			url : "calc",
+			data : $("form").serialize(),
+			success : function(resTxt){
+				//console.log(resTxt);
+				$("#result").val(resTxt);
+			},
+			error : function(){
+				alert("error");
+			} 
+		});
+	});
+</script>
+</html>
